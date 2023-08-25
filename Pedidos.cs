@@ -1,3 +1,5 @@
+using ClienteSpace;
+
 namespace PedidosSpace
 {
     class Pedido
@@ -9,7 +11,7 @@ namespace PedidosSpace
 
         public int Nro { get => nro; set => nro = value; }
         public string Obs { get => obs; set => obs = value; }
-        public string Cliente { get => cliente; set => cliente = value; }
+        private string Cliente { get => cliente; set => cliente = value; }
         public bool Estado { get => estado; set => estado = value; }
 
         public Pedido(int nro, string obs, string cliente, bool estado)
@@ -21,6 +23,12 @@ namespace PedidosSpace
         }
 
         //metodos
+
+        public string verDatosCliente()
+        {
+            return 0;
+        }
+    
 
     }
 

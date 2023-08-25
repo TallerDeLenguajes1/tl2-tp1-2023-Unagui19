@@ -4,10 +4,10 @@ namespace CadeteSpace
 {
     class Cadete
     {
-        public int id;
-        public string? nombre;
-        public string direccion;
-        public int telefono;
-        public List<Pedido> listadoPedidos;
+        private int id;
+        private string? nombre;
+        private string direccion;
+        private int telefono;
+        private List<Pedido> listadoPedidos;
     }
 }
