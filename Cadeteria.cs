@@ -1,6 +1,7 @@
-using CadeteSpace;
+using System.ComponentModel;
+using EspacioEntidades;
 
-namespace CadeteriaSpace
+namespace EspacioEntidades
 {
     class Cadeteria
     {
@@ -21,5 +22,21 @@ namespace CadeteriaSpace
         public int Telefono { get => telefono; set => telefono = value; }
         public bool Estado { get => estado; set => estado = value; }
         internal List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
+
+        Pedido crearPedido(int numero, string obs,string nombre, string direc, int telefono, string referencias)
+        {
+            Pedido nuevoPedido = new Pedido(numero,obs, nombre, direc ,telefono, referencias);
+
+            return nuevoPedido;
+        }
+        public void AsignarPedido(Pedido ) //asigna un pedido a un cadete
+        {
+            Cadete 
+            return 0;
+        }
+         CambiarEstado(pedido, estado):
+        GenerarInforme();
+        ReasignarCadete()
+
     }
 }

@@ -1,15 +1,14 @@
-namespace ClienteSpace
+namespace EspacioEntidades
 {
     class Cliente
     {
         private string nombre;
         private string direccion;
-        private int telefono;
-
+        private long telefono;
         private string datosReferenciaDireccion;
 
 
-        public Cliente(string nombre, string direccion, int telefono, string datosReferenciaDireccion)
+        public Cliente(string nombre, string direccion, long telefono, string datosReferenciaDireccion)
         {
             this.Nombre = nombre;
             this.Direccion = direccion;
@@ -20,7 +19,7 @@ namespace ClienteSpace
         
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
-        public int Telefono { get => telefono; set => telefono = value; }
+        public long Telefono { get => telefono; set => telefono = value; }
         public string DatosReferenciaDireccion { get => datosReferenciaDireccion; set => datosReferenciaDireccion = value; }
     }
 }

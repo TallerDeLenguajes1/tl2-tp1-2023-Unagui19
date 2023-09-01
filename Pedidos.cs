@@ -1,34 +1,59 @@
-using ClienteSpace;
+using EspacioEntidades;
+using System.Linq;
 
-namespace PedidosSpace
+enum Estado
+{
+    entregado,
+    pendiente,
+    cancelado
+}
+
+namespace EspacioEntidades
 {
     class Pedido
     {
         private int nro;
         private string obs;
-        private string cliente;
-        private bool estado;
+        private Cliente cliente;
+        private Estado estado;
 
         public int Nro { get => nro; set => nro = value; }
         public string Obs { get => obs; set => obs = value; }
-        private string Cliente { get => cliente; set => cliente = value; }
-        public bool Estado { get => estado; set => estado = value; }
+        private Cliente Cliente { get => cliente; set => cliente = value; }
+        internal Estado Estado { get => estado; set => estado = value; }
 
-        public Pedido(int nro, string obs, string cliente, bool estado)
+        public Pedido(int nro, string obs, string nombre, string direccion, long telefono, string datosReferenciaDireccion)
         {
             this.Nro = nro;
             this.Obs = obs;
-            this.Cliente = cliente;
-            this.Estado = estado;
+            cliente = new Cliente(nombre,direccion, telefono, datosReferenciaDireccion);//esto es porque es composicion
         }
 
         //metodos
 
-        public string verDatosCliente()
+        public Cliente verDatosCliente()
         {
-            return 0;
+            return cliente;
         }
     
+
+        public string verDireccionCliente()
+        {
+            return cliente.Direccion;
+        }
+
+        public void cambiarEstado()
+        {
+            if (estado==Estado.entregado)
+            {
+                estado
+            }
+        }
+
+        public void aceptarPedido()
+        {
+            
+        }
 
     }
 
