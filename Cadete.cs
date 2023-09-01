@@ -27,7 +27,10 @@ namespace EspacioEntidades
         }
         public void EliminarPedido(Pedido pedido, int numero)
         {
-            listadoPedidos.Contains(pedido);
+            foreach (var item in listadoPedidos)
+            {
+                
+            }
         }
         
         public void AgregarPedido(Pedido pedido)
