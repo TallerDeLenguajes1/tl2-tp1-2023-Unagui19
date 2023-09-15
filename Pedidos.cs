@@ -22,7 +22,7 @@ namespace EspacioEntidades
         private Cliente Cliente { get => cliente; set => cliente = value; }
         internal Estado Estado { get => estado; set => estado = value; }
 
-        public Pedido( string nombre, string direccion, long telefono, string datosReferenciaDireccion, string obs)
+        public Pedido(string nombre, string direccion, double telefono, string datosReferenciaDireccion, string obs)
         {
             this.Nro++;
             this.estado = Estado.pendiente;
@@ -46,11 +46,11 @@ namespace EspacioEntidades
 
         public void AceptarPedido()
         {
-            estado=Estado.aceptado;
+            estado = Estado.aceptado;
         }
         public void CancelarPedido()
         {
-            estado=Estado.cancelado;
+            estado = Estado.cancelado;
         }
 
     }

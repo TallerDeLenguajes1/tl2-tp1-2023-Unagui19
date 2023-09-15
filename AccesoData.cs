@@ -12,7 +12,7 @@ namespace EspacioAccesoData
             {
                 string linea = sr.ReadLine();
                 string[] fields = linea.Split(',');//para leer cada uno de los elementos hasta la ","
-                cadeterias.Add(new Cadeteria(fields[0],fields[1]));
+                cadeterias.Add(new Cadeteria(fields[0], fields[1]));
 
             }
             csv.Close();
@@ -29,23 +29,47 @@ namespace EspacioAccesoData
                 string linea = sr.ReadLine();
                 string[] fields = linea.Split(',');//para leer cada uno de los elementos hasta el ,
                 // documento.Add(fields);            // string agregar = string.Join(";","cebolla");
-                cadetes.Add(new Cadete(int.Parse(fields[0]),fields[1],fields[2],int.Parse(fields[3])));
+                cadetes.Add(new Cadete(int.Parse(fields[0]), fields[1], fields[2], double.Parse(fields[3])));
             }
             csv.Close();
             return cadetes;
         }
-    }
-
-
-        public string GenerarInforme() 
+        public void GenerarInforme(Cadeteria cadeteria)//genera un archivo .csv
         {
-            string intro = $"Cadeteria: {this.Nombre} | Teléfono: {this.}";
-            string cuerpo = "";
-            foreach (var cad in this.Cadetes)
+            FileStream fs = new FileStream("Informe.csv", FileMode.Create);
+            using (StreamWriter writer = new StreamWriter(fs))
             {
-                cuerpo = cuerpo + cad.InformeCadete();
-            }
-            return intro + cuerpo;
-        }
+                int i = 0, cantPedidosTotal = 0;
+                double sumador = 0;
+                // writer.WriteLine("Indice"+" "+"Nombre"+" "+"Extension");
 
+                writer.WriteLine($"Cadeteria {cadeteria.Nombre} || telefono: {cadeteria.Telefono}\n");
+                foreach (var item in cadeteria.ListadoCadetes)
+                {
+                    writer.WriteLine($"{item.Id}; Nombre: {item.Nombre}; monto:{item.jornalACobrar()}; Cantidad de pedidos: {item.ListadoPedidos.Count()}");
+                    i++;
+                    sumador += item.jornalACobrar();
+                    cantPedidosTotal += item.ListadoPedidos.Count();
+                }
+
+                writer.WriteLine("");
+                writer.WriteLine("Monto total: " + sumador);
+
+                writer.WriteLine("Promedio de pedidos por cadete: " + (cantPedidosTotal / cadeteria.ListadoCadetes.Count()));
+            }
+        }
+    }
 }
+
+
+// public string GenerarInforme()
+// {
+//     string cuerpo = "";
+
+//     cuerpo = cadete.Nombre + "; " + cadete.jornalACobrar() + "; " + cadete.ListadoPedidos.Count();
+
+//     return cuerpo;
+// }
+
+
+

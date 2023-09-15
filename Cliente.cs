@@ -4,11 +4,11 @@ namespace EspacioEntidades
     {
         private string nombre;
         private string direccion;
-        private long telefono;
+        private double telefono;
         private string datosReferenciaDireccion;
 
 
-        public Cliente(string nombre, string direccion, long telefono, string datosReferenciaDireccion)
+        public Cliente(string nombre, string direccion, double telefono, string datosReferenciaDireccion)
         {
             this.Nombre = nombre;
             this.Direccion = direccion;
@@ -16,10 +16,10 @@ namespace EspacioEntidades
             this.DatosReferenciaDireccion = datosReferenciaDireccion;
         }
 
-        
+
         public string Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
-        public long Telefono { get => telefono; set => telefono = value; }
+        public double Telefono { get => telefono; set => telefono = value; }
         public string DatosReferenciaDireccion { get => datosReferenciaDireccion; set => datosReferenciaDireccion = value; }
     }
 }

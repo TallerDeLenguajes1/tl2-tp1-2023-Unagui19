@@ -22,15 +22,16 @@ namespace EspacioEntidades
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
 
-        public Pedido crearPedido(string nombre, string direc, int telefono, string referencias,string obs)
+        public Pedido crearPedido(string nombre, string direc, double telefono, string referencias, string obs)
         {
-            Pedido nuevoPedido = new Pedido(nombre, direc, telefono, referencias,obs);
+            Pedido nuevoPedido = new Pedido(nombre, direc, telefono, referencias, obs);
             return nuevoPedido;
         }
 
         public void AsignarPedido(int id, Pedido pedido) //asigna un pedido a un cadete
         {
             Cadete cadete = this.listadoCadetes.First(cadete => cadete.Id == id);
+            CambiarEstado(pedido.Nro, 1);//1 acepta pedido
             cadete.AgregarPedido(pedido);
         }
         public void ReasignarCadete(int idCadete1, int idCadete2, int numeroPedido)
@@ -40,11 +41,11 @@ namespace EspacioEntidades
 
             foreach (var item in listadoCadetes)
             {
-                if (item.Id==idCadete1)
+                if (item.Id == idCadete1)
                 {
                     Pedido pedido = item.ListadoPedidos.FirstOrDefault(pedido => pedido.Nro == numeroPedido, null);
                     item.EliminarPedido(numeroPedido);
-                    AsignarPedido(idCadete2,pedido);
+                    AsignarPedido(idCadete2, pedido);
                     break;
                 }
 
@@ -52,20 +53,21 @@ namespace EspacioEntidades
 
 
         }
-        public void CambiarEstado(int numeroPedido, int estado ){
+        public void CambiarEstado(int numeroPedido, int estado)
+        {
             foreach (var item in listadoCadetes)
             {
                 foreach (var item2 in item.ListadoPedidos)
                 {
-                    if (item2.Nro==numeroPedido)
+                    if (item2.Nro == numeroPedido)
                     {
-                        if (estado==1)
-                        {    
-                           item2.AceptarPedido();
+                        if (estado == 1)
+                        {
+                            item2.AceptarPedido();
                         }
                         else
                         {
-                           item2.CancelarPedido();
+                            item2.CancelarPedido();
                         }
                     }
                 }
