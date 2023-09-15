@@ -22,9 +22,9 @@ namespace EspacioEntidades
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
 
-        Pedido crearPedido(int numero, string obs, string nombre, string direc, int telefono, string referencias)
+        public Pedido crearPedido(string nombre, string direc, int telefono, string referencias,string obs)
         {
-            Pedido nuevoPedido = new Pedido(numero, obs, nombre, direc, telefono, referencias);
+            Pedido nuevoPedido = new Pedido(nombre, direc, telefono, referencias,obs);
             return nuevoPedido;
         }
 

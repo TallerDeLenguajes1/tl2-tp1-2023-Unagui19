@@ -12,9 +12,9 @@ namespace EspacioEntidades
 {
     public class Pedido
     {
-        private int nro;
-        private string obs;
+        private static int nro;
         private Cliente cliente;
+        private string obs;
         private Estado estado;
 
         public int Nro { get => nro; set => nro = value; }
@@ -22,12 +22,12 @@ namespace EspacioEntidades
         private Cliente Cliente { get => cliente; set => cliente = value; }
         internal Estado Estado { get => estado; set => estado = value; }
 
-        public Pedido(int nro, string obs, string nombre, string direccion, long telefono, string datosReferenciaDireccion)
+        public Pedido( string nombre, string direccion, long telefono, string datosReferenciaDireccion, string obs)
         {
-            this.Nro = nro;
-            this.Obs = obs;
+            this.Nro++;
             this.estado = Estado.pendiente;
             cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);//esto es porque es composicion
+            this.Obs = obs;
         }
 
         //metodos
