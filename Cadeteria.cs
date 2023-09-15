@@ -1,42 +1,81 @@
 using System.ComponentModel;
 using EspacioEntidades;
+using System.Linq;
 
 namespace EspacioEntidades
 {
-    class Cadeteria
+    public class Cadeteria
     {
         private string nombre;
-        private int telefono;
+        private string telefono;
         private List<Cadete> listadoCadetes;
-        private bool estado;
 
-        public Cadeteria(string nombre, int telefono, List<Cadete> listadoCadetes, bool estado)
+
+        public Cadeteria(string nombre, string telefono)
         {
             this.Nombre = nombre;
             this.Telefono = telefono;
-            this.ListadoCadetes = listadoCadetes;
-            this.Estado = estado;
+            this.ListadoCadetes = new List<Cadete>();
         }
 
         public string Nombre { get => nombre; set => nombre = value; }
-        public int Telefono { get => telefono; set => telefono = value; }
-        public bool Estado { get => estado; set => estado = value; }
-        internal List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
+        public string Telefono { get => telefono; set => telefono = value; }
+        public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
 
-        Pedido crearPedido(int numero, string obs,string nombre, string direc, int telefono, string referencias)
+        Pedido crearPedido(int numero, string obs, string nombre, string direc, int telefono, string referencias)
         {
-            Pedido nuevoPedido = new Pedido(numero,obs, nombre, direc ,telefono, referencias);
-
+            Pedido nuevoPedido = new Pedido(numero, obs, nombre, direc, telefono, referencias);
             return nuevoPedido;
         }
-        public void AsignarPedido(Pedido ) //asigna un pedido a un cadete
+
+        public void AsignarPedido(int id, Pedido pedido) //asigna un pedido a un cadete
         {
-            Cadete 
-            return 0;
+            Cadete cadete = this.listadoCadetes.First(cadete => cadete.Id == id);
+            cadete.AgregarPedido(pedido);
         }
-         CambiarEstado(pedido, estado):
-        GenerarInforme();
-        ReasignarCadete()
+        public void ReasignarCadete(int idCadete1, int idCadete2, int numeroPedido)
+        {
+            // Pedido pedido= .FirstOrDefault(pedido => cadete.Id == idCadete2);
+            Pedido aux;
+
+            foreach (var item in listadoCadetes)
+            {
+                if (item.Id==idCadete1)
+                {
+                    Pedido pedido = item.ListadoPedidos.FirstOrDefault(pedido => pedido.Nro == numeroPedido, null);
+                    item.EliminarPedido(numeroPedido);
+                    AsignarPedido(idCadete2,pedido);
+                    break;
+                }
+
+            }
+
+
+        }
+        public void CambiarEstado(int numeroPedido, int estado ){
+            foreach (var item in listadoCadetes)
+            {
+                foreach (var item2 in item.ListadoPedidos)
+                {
+                    if (item2.Nro==numeroPedido)
+                    {
+                        if (estado==1)
+                        {    
+                           item2.AceptarPedido();
+                        }
+                        else
+                        {
+                           item2.CancelarPedido();
+                        }
+                    }
+                }
+            }
+        }
+        public Cadete BuscarporCadetePorId(int id)
+        {
+            Cadete cadete = this.listadoCadetes.FirstOrDefault(cadete => cadete.Id == id);
+            return cadete;
+        }
 
     }
 }

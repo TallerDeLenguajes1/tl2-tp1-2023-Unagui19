@@ -3,14 +3,14 @@ using System.Linq;
 
 enum Estado
 {
-    entregado,
     pendiente,
+    aceptado,
     cancelado
 }
 
 namespace EspacioEntidades
 {
-    class Pedido
+    public class Pedido
     {
         private int nro;
         private string obs;
@@ -26,33 +26,31 @@ namespace EspacioEntidades
         {
             this.Nro = nro;
             this.Obs = obs;
-            cliente = new Cliente(nombre,direccion, telefono, datosReferenciaDireccion);//esto es porque es composicion
+            this.estado = Estado.pendiente;
+            cliente = new Cliente(nombre, direccion, telefono, datosReferenciaDireccion);//esto es porque es composicion
         }
 
         //metodos
 
-        public Cliente verDatosCliente()
+        public string verDatosCliente()
         {
-            return cliente;
+            return cliente.Nombre + "-" + cliente.Telefono
+             + "-" + Cliente.Direccion + "-" + Cliente.DatosReferenciaDireccion; ;
         }
-    
+
 
         public string verDireccionCliente()
         {
             return cliente.Direccion;
         }
 
-        public void cambiarEstado()
+        public void AceptarPedido()
         {
-            if (estado==Estado.entregado)
-            {
-                estado
-            }
+            estado=Estado.aceptado;
         }
-
-        public void aceptarPedido()
+        public void CancelarPedido()
         {
-            
+            estado=Estado.cancelado;
         }
 
     }
