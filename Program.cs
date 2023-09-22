@@ -2,7 +2,7 @@
 using EspacioAccesoData;
 using System.Data.Common;
 
-accesoData data = new accesoData();
+AccesoCSV data = new AccesoCSV();
 List<Cadeteria> cadeterias = data.LeerCadeterias();
 List<Cadete> cadetes = data.LeerCadetes();
 int repetir = 1;
