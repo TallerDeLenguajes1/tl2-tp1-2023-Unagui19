@@ -44,16 +44,18 @@ namespace EspacioAccesoData
                 // writer.WriteLine("Indice"+" "+"Nombre"+" "+"Extension");
 
                 writer.WriteLine($"Cadeteria {cadeteria.Nombre} || telefono: {cadeteria.Telefono}\n");
-                foreach (var item in cadeteria.ListadoCadetes)
+                foreach (var cadete in cadeteria.ListadoCadetes)
                 {
-                    writer.WriteLine($"{item.Id}; Nombre: {item.Nombre}; monto:{item.jornalACobrar()}; Cantidad de pedidos: {item.ListadoPedidos.Count()}");
+
+                    writer.WriteLine($"{cadete.Id}; Nombre: {cadete.Nombre}; monto:{cadeteria.jornalACobrar(cadete.Id)}; Cantidad de pedidos: {cadete.CantPedidos}");
                     i++;
-                    sumador += item.jornalACobrar();
-                    cantPedidosTotal += item.ListadoPedidos.Count();
+                    sumador += cadeteria.jornalACobrar(cadete.Id);
+                    cantPedidosTotal += cadete.CantPedidos;
                 }
 
                 writer.WriteLine("");
                 writer.WriteLine("Monto total: " + sumador);
+                writer.WriteLine("Cantidad total de pedidos: " + cantPedidosTotal);
 
                 writer.WriteLine("Promedio de pedidos por cadete: " + (cantPedidosTotal / cadeteria.ListadoCadetes.Count()));
             }

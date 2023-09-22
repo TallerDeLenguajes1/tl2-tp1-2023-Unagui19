@@ -53,7 +53,7 @@ namespace EspacioEntidades
                 {
                     if (item.Nro == numeroPedido)
                     {
-                        if (estado == 1)
+                        if (estado == (int)Estado.cancelado)
                         {
                             item.AceptarPedido();
                         }
@@ -77,16 +77,15 @@ namespace EspacioEntidades
 
         public double jornalACobrar(int idCadete)
         {
-            int contador = 0;
-            // Cadete cadete = BuscarporCadetePorId(idCadete); 
-            foreach (var pedido in listadoPedidos)
+            // int contador = 0;
+            Cadete cadete = BuscarporCadetePorId(idCadete); 
+            if (cadete!=null)
             {
-                if (pedido.Cadete.Id==idCadete)
-                {
-                    contador++;
-                }
+                return 500 * cadete.CantPedidos;  
             }
-            return 500 * contador;
+            else{
+                return -1;
+            }
         }
 
     }

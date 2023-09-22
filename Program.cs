@@ -25,12 +25,13 @@ while (opcionCadeteria > cadeterias.Count() || !ingreso1 || opcionCadeteria <= 0
 
 while (repetir == 1)
 {
-    Console.WriteLine("\t-----Cadeteria " + cadeterias[opcionCadeteria].Nombre + "-----");
+    
+    Console.WriteLine("\t-----Cadeteria " + cadeterias[opcionCadeteria-1].Nombre + "-----");
     Console.WriteLine("\n1)Alta de pedido");
     Console.WriteLine("\n2)Cambiar estado de pedido");
     Console.WriteLine("\n3)Reasignar pedido");
 
-    cadeterias[opcionCadeteria].ListadoCadetes = cadetes;
+    cadeterias[opcionCadeteria-1].ListadoCadetes = cadetes;
 
     int opcion;
     string x = Console.ReadLine();
@@ -62,12 +63,13 @@ while (repetir == 1)
         bool ingresoId5 = int.TryParse(y, out id);
         if (ingresoId5)
         {
-            foreach (var item in cadeterias)
+            Pedido pedido = cadeterias[opcionCadeteria-1].crearPedido(nombreCliente, direccionCliente, int.Parse(telCliente), datosRefCliente, obsPedido);
+            if (cadeterias[opcionCadeteria-1].BuscarporCadetePorId(id) != null)
             {
-                if (item.BuscarporCadetePorId(id) != null)
-                {
-                    item.AsignarPedido(id, cadeterias[opcionCadeteria].crearPedido(nombreCliente, direccionCliente, int.Parse(telCliente), datosRefCliente, obsPedido));
-                }
+                cadeterias[opcionCadeteria-1].AsignarCadeteAPedido(id,pedido.Nro);
+            }
+            else{
+                Console.WriteLine("No existe un cadete con ese id");
             }
         }
 
@@ -84,48 +86,49 @@ while (repetir == 1)
             j = Console.ReadLine();
         }
 
-        foreach (var item in cadeterias[opcionCadeteria].ListadoCadetes)
+        foreach (var pedido in cadeterias[opcionCadeteria-1].ListadoPedidos)
         {
-            foreach (var item2 in item.ListadoPedidos)
+            if (pedido.Nro == numeroPedido)
             {
-                if (item2.Nro == numeroPedido)
-                {
-                    Console.WriteLine("\nEstado actual del Pedido: " + item2.Estado);
-                    Console.WriteLine("\n Desea cambiar el estado del pedido?:(1-si, 2-no)");
-                    int confirmacion;
-                    string k = Console.ReadLine();
-                    bool ingreso4 = int.TryParse(k, out confirmacion);
-                    if (confirmacion == 1)
-                    {
-                        cadeterias[opcionCadeteria].CambiarEstado(numeroPedido, confirmacion);
-                    }
-                    else
-                    {
-                        cadeterias[opcionCadeteria].CambiarEstado(numeroPedido, confirmacion);
-                    }
+                Console.WriteLine("\nEstado actual del Pedido: " + pedido.Estado);
+                Console.WriteLine("\n Desea cambiar el estado del pedido?:(1-si, 2-no)");
+                int confirmacion;
+                string k = Console.ReadLine();
+                bool ingreso4 = int.TryParse(k, out confirmacion);
 
+                if (confirmacion == 1)
+                {
+                    cadeterias[opcionCadeteria-1].CambiarEstado(numeroPedido, (int)pedido.Estado);
+                }
+                else
+                {
+                    Console.WriteLine("No se realizara cambio de estado del pedido");
                 }
             }
         }
+
     }
     else
     {
         Console.WriteLine("\tReasignar pedido:");
         Console.WriteLine("\nId de cadete a asignarle el pedido: ");
-        int idAsignando, idQuitar;
+        int idAsignando;
         string p = Console.ReadLine();
         bool ingresoId = int.TryParse(p, out idAsignando);
-        Console.WriteLine("\nId de cadete a quitarle el pedido: ");
-        string q = Console.ReadLine();
-        bool ingresoId2 = int.TryParse(p, out idQuitar);
-        Console.WriteLine("\nIngrese numero de pedido: ");
-        int numeroPedido2;
-        string xy = Console.ReadLine();
-        bool ingreso5 = int.TryParse(xy, out numeroPedido2);
-
-        if (ingresoId2 && ingresoId)
+        Console.WriteLine("Pedidos actuales: ");
+        foreach (var item in cadeterias[opcionCadeteria].ListadoPedidos)
         {
-            cadeterias[opcionCadeteria].ReasignarCadete(idAsignando, idQuitar, numeroPedido2);
+            Console.WriteLine($"{item.Nro}");       
+        }
+        Console.WriteLine("");       
+        Console.WriteLine("\nIngrese numero de pedido: ");
+        int numeroPedidoReasignado;
+        string xy = Console.ReadLine();
+        bool ingreso5 = int.TryParse(xy, out numeroPedidoReasignado);
+
+        if (ingreso5 && ingresoId)
+        {
+            cadeterias[opcionCadeteria-1].ReasignarCadete(idAsignando, numeroPedidoReasignado);
         }
     }
     Console.WriteLine("Desea continuar? (1-Si, 2-No)");
@@ -136,7 +139,7 @@ while (repetir == 1)
         Console.WriteLine("\nIngreso una valor invalido. Vuelva a intentarlo:");
         continuar = Console.ReadLine();
     }
-    data.GenerarInforme(cadeterias[opcionCadeteria]);
+    data.GenerarInforme(cadeterias[opcionCadeteria-1]);
 }
 
 

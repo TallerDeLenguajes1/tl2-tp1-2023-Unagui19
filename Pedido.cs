@@ -51,10 +51,12 @@ namespace EspacioEntidades
         public void AceptarPedido()
         {
             estado = Estado.aceptado;
+            cadete.CantPedidos++;
         }
         public void CancelarPedido()
         {
             estado = Estado.cancelado;
+            cadete.CantPedidos--;
         }
 
         public void AsignarCadete(Cadete cadete)

@@ -8,13 +8,14 @@ namespace EspacioEntidades
         private string? nombre;
         private string direccion;
         private double telefono;
-        // private List<Pedido> listadoPedidos;
-
+        private int cantPedidos;
 
         public int Id { get => id; set => id = value; }
         public string? Nombre { get => nombre; set => nombre = value; }
         public string Direccion { get => direccion; set => direccion = value; }
         public double Telefono { get => telefono; set => telefono = value; }
+        public int CantPedidos { get => cantPedidos; set => cantPedidos = value; }
+
         // public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
 
         public Cadete(int id, string? nombre, string direccion, double telefono)
@@ -23,6 +24,7 @@ namespace EspacioEntidades
             this.nombre = nombre;
             this.direccion = direccion;
             this.telefono = telefono;
+            cantPedidos=0;
             // this.listadoPedidos = new List<Pedido>();
         }
 
