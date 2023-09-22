@@ -45,7 +45,6 @@ namespace EspacioEntidades
         {
             // Pedido pedido= .FirstOrDefault(pedido => cadete.Id == idCadete2);
             Pedido aux;
-
             foreach (var item in listadoCadetes)
             {
                 if (item.Id == idCadete1)
@@ -91,10 +90,10 @@ namespace EspacioEntidades
         public double jornalACobrar(int idCadete)
         {
             int contador = 0;
-            Pedido pedido = BuscarporPedidoPorNumero()
-            foreach (var item in listadoPedidos)
+            // Cadete cadete = BuscarporCadetePorId(idCadete); 
+            foreach (var pedido in listadoPedidos)
             {
-                if (item.Nro== && item.Estado == Estado.aceptado)
+                if (pedido.Cadete.Id==idCadete)
                 {
                     contador++;
                 }
