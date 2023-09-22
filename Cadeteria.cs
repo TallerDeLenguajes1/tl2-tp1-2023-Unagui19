@@ -9,6 +9,7 @@ namespace EspacioEntidades
         private string nombre;
         private string telefono;
         private List<Cadete> listadoCadetes;
+        private List<Pedido> listadoPedidos;
 
 
         public Cadeteria(string nombre, string telefono)
@@ -16,23 +17,29 @@ namespace EspacioEntidades
             this.Nombre = nombre;
             this.Telefono = telefono;
             this.ListadoCadetes = new List<Cadete>();
+            this.ListadoPedidos = new List<Pedido>();
         }
 
         public string Nombre { get => nombre; set => nombre = value; }
         public string Telefono { get => telefono; set => telefono = value; }
         public List<Cadete> ListadoCadetes { get => listadoCadetes; set => listadoCadetes = value; }
+        public List<Pedido> ListadoPedidos { get => listadoPedidos; set => listadoPedidos = value; }
 
         public Pedido crearPedido(string nombre, string direc, double telefono, string referencias, string obs)
         {
             Pedido nuevoPedido = new Pedido(nombre, direc, telefono, referencias, obs);
+            ListadoPedidos.Add(nuevoPedido);
             return nuevoPedido;
         }
 
-        public void AsignarPedido(int id, Pedido pedido) //asigna un pedido a un cadete
+        public void AsignarCadeteAPedido(int id, int numeroPedido) //asigna un cadete a un pedido ( tp3)
         {
-            Cadete cadete = this.listadoCadetes.First(cadete => cadete.Id == id);
+            // Cadete cadete = this.listadoCadetes.First(cadete => cadete.Id == id);
+            Cadete cadete = BuscarporCadetePorId(id);
+            Pedido pedido = BuscarporPedidoPorNumero(numeroPedido);
+
             CambiarEstado(pedido.Nro, 1);//1 acepta pedido
-            cadete.AgregarPedido(pedido);
+            pedido.(pedido);
         }
         public void ReasignarCadete(int idCadete1, int idCadete2, int numeroPedido)
         {
@@ -55,28 +62,44 @@ namespace EspacioEntidades
         }
         public void CambiarEstado(int numeroPedido, int estado)
         {
-            foreach (var item in listadoCadetes)
-            {
-                foreach (var item2 in item.ListadoPedidos)
+                foreach (var item in ListadoPedidos)
                 {
-                    if (item2.Nro == numeroPedido)
+                    if (item.Nro == numeroPedido)
                     {
                         if (estado == 1)
                         {
-                            item2.AceptarPedido();
+                            item.AceptarPedido();
                         }
                         else
                         {
-                            item2.CancelarPedido();
+                            item.CancelarPedido();
                         }
                     }
                 }
-            }
         }
         public Cadete BuscarporCadetePorId(int id)
         {
             Cadete cadete = this.listadoCadetes.FirstOrDefault(cadete => cadete.Id == id);
             return cadete;
+        }
+        public Pedido BuscarporPedidoPorNumero(int nPedido)
+        {
+            Pedido pedido = this.listadoPedidos.FirstOrDefault(pedido => pedido.Nro == nPedido);
+            return pedido;
+        }
+
+        public double jornalACobrar(int idCadete)
+        {
+            int contador = 0;
+            Pedido pedido = BuscarporPedidoPorNumero()
+            foreach (var item in listadoPedidos)
+            {
+                if (item.Nro== && item.Estado == Estado.aceptado)
+                {
+                    contador++;
+                }
+            }
+            return 500 * contador;
         }
 
     }
