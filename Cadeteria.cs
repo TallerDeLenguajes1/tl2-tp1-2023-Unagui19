@@ -37,27 +37,15 @@ namespace EspacioEntidades
             // Cadete cadete = this.listadoCadetes.First(cadete => cadete.Id == id);
             Cadete cadete = BuscarporCadetePorId(id);
             Pedido pedido = BuscarporPedidoPorNumero(numeroPedido);
-
-            CambiarEstado(pedido.Nro, 1);//1 acepta pedido
-            pedido.(pedido);
+            pedido.AsignarCadete(cadete);
         }
-        public void ReasignarCadete(int idCadete1, int idCadete2, int numeroPedido)
+        
+        public void ReasignarCadete(int idCadeteNuevo, int numeroPedido)
         {
             // Pedido pedido= .FirstOrDefault(pedido => cadete.Id == idCadete2);
-            Pedido aux;
-            foreach (var item in listadoCadetes)
-            {
-                if (item.Id == idCadete1)
-                {
-                    Pedido pedido = item.ListadoPedidos.FirstOrDefault(pedido => pedido.Nro == numeroPedido, null);
-                    item.EliminarPedido(numeroPedido);
-                    AsignarPedido(idCadete2, pedido);
-                    break;
-                }
-
-            }
-
-
+            Pedido aux = BuscarporPedidoPorNumero(numeroPedido);
+            aux.DesasignarCadete();
+            aux.AsignarCadete(BuscarporCadetePorId(idCadeteNuevo));
         }
         public void CambiarEstado(int numeroPedido, int estado)
         {
